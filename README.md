@@ -16,6 +16,7 @@ This section covers how to set up the environment and execute the project compon
 Clone the repository and install all required project dependencies using the configuration file:
 
 git clone https://github.com/Jaimardio/Virtual_columns_in_a_pandas_DataFrame.git
+
 cd Virtual_columns_in_a_pandas_DataFrame
 ```bash
 pip install -r requirements.txt
@@ -91,4 +92,5 @@ Problem: Mixed casing and leading/trailing spaces across text fields.
 
 Rows affected: Multiple rows containing untrimmed categorical strings.
 
-Handling: Standardized all categorical text fields using .str.strip() and .str.title() to ensure accurate aggregation by region.
+Handling: Standardized all categorical text fields using .str.strip() and .str.title() to ensure accurate
+aggregation by region.
