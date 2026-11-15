@@ -3,7 +3,18 @@
 > **Author:** [Jakub Imiński (Jaimardio)](https://github.com/Jaimardio)
 
 ---
+## 🛠️ Project Structure & Components
 
+The repository is organized into core modular components corresponding to the task requirements:
+* **`solution.py` (Part 1):** Contains the core `add_virtual_column` function.
+It dynamically evaluates mathematical expressions (addition, subtraction, multiplication) on pandas DataFrames,
+validates strict column naming rules (letters and underscores only),
+and safely returns an empty DataFrame if validation fails.
+* **`pipeline.py` (Part 2):** Implements the end-to-end ETL data pipeline. It reads raw sales data, cleans and imputes missing values,
+sequentially invokes `add_virtual_column` to calculate item revenues, and aggregates the results into `revenue_by_region.csv`.
+* **`test_custom.py` & `test_virtual_column.py` (Part 3):** Comprehensive test suites validating both the virtual column utility function and the pipeline's data cleaning logic.
+
+---
 ## 🚀 1. Setup, Pipeline & Test Execution
 
 This section covers how to set up the environment and execute the project components.
