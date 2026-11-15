@@ -14,33 +14,42 @@ This section covers how to set up the environment and execute the project compon
 
 ### Installation & Setup
 Clone the repository and install all required project dependencies using the configuration file:
+
 git clone https://github.com/Jaimardio/Virtual_columns_in_a_pandas_DataFrame.git
 cd Virtual_columns_in_a_pandas_DataFrame
 ```bash
 pip install -r requirements.txt
 
 Running the Pipeline
-To execute the data cleaning pipeline, compute revenues using the custom virtual column function, and generate the final regional report (revenue_by_region.csv): python pipeline.py
+To execute the data cleaning pipeline, compute revenues using the custom virtual column function,
+and generate the final regional report (revenue_by_region.csv): python pipeline.py
 
 Running the Tests
-To execute all test suites (including instructor-provided tests and custom verification scripts) with a single command:
+To execute all test suites (including instructor-provided tests and custom verification scripts)
+with a single command:
 python -m pytest
 
 🧠 2. Assumptions & Design Decisions
-Where the task guidelines left decisions open or ambiguous, the following architectural and business choices were made:
+Where the task guidelines left decisions open or ambiguous,
+the following architectural and business choices were made:
 
-Two-Step Virtual Column Chaining: Because the required add_virtual_column function is designed to handle a single binary operation at a time (col1 op col2), I made the architectural decision to invoke it sequentially in the pipeline:
+Two-Step Virtual Column Chaining: Because the required add_virtual_column function
+is designed to handle a single binary operation at a time (col1 op col2),
+I made the architectural decision to invoke it sequentially in the pipeline:
 
 First, computing Subtotal = Quantity * Unit_Price
 
 Second, computing Revenue = Subtotal - Discount
 
-Zero Discount Assumption: Blank or missing discount fields were assumed to represent $0 discounts, ensuring that every valid order line contributes accurately to revenue calculations without dropping records.
+Zero Discount Assumption: Blank or missing discount fields were assumed to represent $0 discounts,
+ensuring that every valid order line contributes accurately to revenue calculations without dropping records.
 
-Product-Level Price Imputation: Assumed that missing unit prices within the same product category share a uniform baseline price, allowing safe data recovery without introducing external pricing bias.
+Product-Level Price Imputation: Assumed that missing unit prices within the same product category
+share a uniform baseline price, allowing safe data recovery without introducing external pricing bias.
 
 🧹 3. Data Quality Problems Found in sales.csv & Handling
-During exploratory data inspection of sales.csv, several anomalies and data quality issues were identified, along with the exact impact on dataset rows and their resolutions:
+During exploratory data inspection of sales.csv, several anomalies and data quality issues were identified,
+along with the exact impact on dataset rows and their resolutions:
 
 Header Anomaly (Ghost Row)
 
@@ -56,7 +65,8 @@ Problem: Several order lines lacked pricing data entirely.
 
 Rows affected: A minor subset of rows across the dataset.
 
-Handling: Rather than dropping valuable sales data, missing prices were imputed by calculating the mean Unit Price grouped specifically by the product category (df.groupby("Product")["Unit Price"].transform("mean")).
+Handling: Rather than dropping valuable sales data, missing prices were imputed by calculating the mean Unit Price
+grouped specifically by the product category (df.groupby("Product")["Unit Price"].transform("mean")).
 
 Malformed & Missing Numeric Values (Quantity, Unit Price, Discount)
 
@@ -64,7 +74,8 @@ Problem: Numeric columns contained trailing spaces, non-numeric strings, or null
 
 Rows affected: A small percentage of total rows.
 
-Handling: Forced conversion using errors='coerce'. Missing Discount values were filled with 0. Unsalvageable rows missing critical quantities were dropped.
+Handling: Forced conversion using errors='coerce'. Missing Discount values were filled with 0.
+Unsalvageable rows missing critical quantities were dropped.
 
 Hidden Whitespace in Column Headers
 
