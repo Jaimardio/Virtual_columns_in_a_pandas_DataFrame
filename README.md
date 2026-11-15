@@ -15,20 +15,27 @@ This section covers how to set up the environment and execute the project compon
 ### Installation & Setup
 Clone the repository and install all required project dependencies using the configuration file:
 
+```bash
 git clone https://github.com/Jaimardio/Virtual_columns_in_a_pandas_DataFrame.git
 
 cd Virtual_columns_in_a_pandas_DataFrame
-```bash
+
 pip install -r requirements.txt
+```
 
 Running the Pipeline
 To execute the data cleaning pipeline, compute revenues using the custom virtual column function,
-and generate the final regional report (revenue_by_region.csv): python pipeline.py
+and generate the final regional report (revenue_by_region.csv): 
+```bash
+python pipeline.py
+```
 
 Running the Tests
 To execute all test suites (including instructor-provided tests and custom verification scripts)
 with a single command:
+```bash
 python -m pytest
+```
 
 🧠 2. Assumptions & Design Decisions
 Where the task guidelines left decisions open or ambiguous,
